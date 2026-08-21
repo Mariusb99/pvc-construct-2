@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getActiveCategories } from "@/lib/queries/categories";
 import { getAllEquipmentForSitemap } from "@/lib/queries/equipment";
 
+export const dynamic = "force-dynamic";
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pvcconstruct.ro";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
