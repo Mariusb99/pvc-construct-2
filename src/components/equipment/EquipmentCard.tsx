@@ -62,7 +62,7 @@ export function EquipmentCard({
               src={item.primaryImage}
               alt={item.model}
               fill
-              sizes="200px"
+              sizes="(max-width: 639px) 128px, 192px"
               className="object-cover"
             />
           ) : (
@@ -115,7 +115,7 @@ export function EquipmentCard({
             src={item.primaryImage}
             alt={item.model}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
+            sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, (max-width: 1279px) 44vw, 30vw"
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (

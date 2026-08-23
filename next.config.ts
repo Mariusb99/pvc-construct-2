@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    // AVIF înaintea WebP: aceeași calitate vizuală la ~20-30% mai puțini
+    // octeți, important pe conexiuni mobile. Browserele vechi primesc WebP.
+    formats: ["image/avif", "image/webp"],
+    // Praguri adaptate site-ului: cardurile de utilaj nu depășesc ~640px pe
+    // mobil, iar galeria ~1200px — nu are rost să generăm variante uriașe.
+    imageSizes: [64, 96, 128, 192, 256, 384],
+    deviceSizes: [360, 420, 640, 828, 1080, 1200, 1920],
     // Permite afișarea imaginilor urcate în Supabase Storage (orice proiect
     // *.supabase.co) prin componenta next/image, atât pentru domeniul de
     // storage cât și pentru orice subdomeniu custom configurat ulterior.

@@ -5,10 +5,18 @@ import { getAllEquipmentForSitemap } from "@/lib/queries/equipment";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pvcconstruct.ro";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categoriesList, equipmentList] = await Promise.all([
-    getActiveCategories(),
-    getAllEquipmentForSitemap(),
-  ]);
+  // Dacă baza de date e momentan inaccesibilă în timpul build-ului, livrăm
+  // doar paginile fixe în loc să oprim tot deploy-ul.
+  let categoriesList: Awaited<ReturnType<typeof getActiveCategories>> = [];
+  let equipmentList: Awaited<ReturnType<typeof getAllEquipmentForSitemap>> = [];
+  try {
+    [categoriesList, equipmentList] = await Promise.all([
+      getActiveCategories(),
+      getAllEquipmentForSitemap(),
+    ]);
+  } catch (error) {
+    console.error("sitemap: baza de date indisponibilă, folosesc doar rutele fixe", error);
+  }
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: siteUrl, changeFrequency: "daily", priority: 1 },

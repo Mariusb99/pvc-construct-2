@@ -28,6 +28,7 @@ export const dictionaries = {
       buyEquipment: "Cumpără utilaje",
       rentEquipment: "Închiriază utilaje",
       language: "Limbă",
+      callNow: "Sună",
     },
     hero: {
       eyebrow: "PVC Construct — utilaje verificate, pregătite de lucru",
@@ -123,6 +124,10 @@ export const dictionaries = {
       emptyDesc: "Încearcă să lărgești criteriile de căutare sau resetează filtrele.",
       prev: "← Anterior",
       next: "Următor →",
+      filtersButton: "Filtre",
+      filtersTitle: "Filtrează utilajele",
+      closeFilters: "Închide filtrele",
+      activeFilters: "active",
     },
     detail: {
       breadcrumbRoot: "Utilaje",
@@ -219,6 +224,7 @@ export const dictionaries = {
       buyEquipment: "Buy equipment",
       rentEquipment: "Rent equipment",
       language: "Language",
+      callNow: "Call",
     },
     hero: {
       eyebrow: "PVC Construct — inspected machines, ready to work",
@@ -313,6 +319,10 @@ export const dictionaries = {
       emptyDesc: "Try widening your search criteria or reset the filters.",
       prev: "← Previous",
       next: "Next →",
+      filtersButton: "Filters",
+      filtersTitle: "Filter equipment",
+      closeFilters: "Close filters",
+      activeFilters: "active",
     },
     detail: {
       breadcrumbRoot: "Equipment",

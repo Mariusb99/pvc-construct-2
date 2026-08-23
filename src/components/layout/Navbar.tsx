@@ -89,19 +89,25 @@ export async function Navbar() {
               {settingsRow.phone}
             </a>
           )}
-          <Button href="/contact#cerere-oferta" size="sm">
-            {dict.nav.requestQuote}
-          </Button>
+          {/* Pe mobil acțiunea trăiește în bara fixă de jos, ca header-ul să
+              rămână curat; pe desktop păstrăm un buton sobru, cu contur.
+              Ascunderea se face pe un wrapper: `hidden` pus direct pe buton ar
+              intra în conflict cu `inline-flex` din stilul lui de bază. */}
+          <span className="hidden lg:inline-flex">
+            <Button href="/contact#cerere-oferta" size="sm" variant="ghost-dark">
+              {dict.nav.requestQuote}
+            </Button>
+          </span>
         </div>
       </div>
 
       {/* navigare mobilă simplă, sub bara principală */}
-      <nav className="flex items-center gap-5 overflow-x-auto border-t border-white/10 px-6 py-2.5 lg:hidden">
+      <nav className="flex items-center gap-1 overflow-x-auto border-t border-white/10 px-4 lg:hidden">
         {navLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="whitespace-nowrap text-[13px] font-medium text-pure-white/80 hover:text-pure-white"
+            className="flex h-11 shrink-0 items-center whitespace-nowrap px-2 text-[14px] font-medium text-pure-white/80 hover:text-pure-white"
           >
             {link.label}
           </Link>

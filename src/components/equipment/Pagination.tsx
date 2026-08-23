@@ -26,7 +26,7 @@ export function Pagination({
         href={buildHref(Math.max(1, page - 1))}
         aria-disabled={page === 1}
         className={cn(
-          "flex h-9 items-center rounded-inputs border border-silver-lining px-3 text-[13px] text-carbon-black hover:border-carbon-black",
+          "flex h-11 items-center rounded-inputs border border-silver-lining px-4 text-[13px] text-carbon-black hover:border-carbon-black sm:h-9 sm:px-3",
           page === 1 && "pointer-events-none opacity-40"
         )}
       >
@@ -39,7 +39,7 @@ export function Pagination({
           <Link
             href={buildHref(p)}
             className={cn(
-              "flex h-9 min-w-9 items-center justify-center rounded-inputs px-3 text-[13px]",
+              "flex h-11 min-w-11 items-center justify-center rounded-inputs px-3 text-[13px] sm:h-9 sm:min-w-9",
               p === page
                 ? "bg-carbon-black text-pure-white"
                 : "border border-silver-lining text-carbon-black hover:border-carbon-black"
@@ -54,7 +54,7 @@ export function Pagination({
         href={buildHref(Math.min(totalPages, page + 1))}
         aria-disabled={page === totalPages}
         className={cn(
-          "flex h-9 items-center rounded-inputs border border-silver-lining px-3 text-[13px] text-carbon-black hover:border-carbon-black",
+          "flex h-11 items-center rounded-inputs border border-silver-lining px-4 text-[13px] text-carbon-black hover:border-carbon-black sm:h-9 sm:px-3",
           page === totalPages && "pointer-events-none opacity-40"
         )}
       >

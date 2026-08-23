@@ -1,5 +1,5 @@
 import { FilterPanel } from "./FilterPanel";
-import { SortBar } from "./SortBar";
+import { CatalogToolbar } from "./CatalogToolbar";
 import { EquipmentCard } from "./EquipmentCard";
 import { Pagination } from "./Pagination";
 import { getActiveCategories } from "@/lib/queries/categories";
@@ -28,20 +28,42 @@ export async function EquipmentListing({
     getDict(),
   ]);
 
+  // Câte filtre sunt aplicate — afișate ca insignă pe butonul de pe mobil.
+  const activeFilterCount = [
+    filters.q,
+    lockedCategory ? undefined : filters.categorySlug,
+    filters.brandSlug,
+    filters.listingType,
+    filters.status,
+    filters.yearMin,
+    filters.yearMax,
+    filters.priceMin,
+    filters.priceMax,
+  ].filter(Boolean).length;
+
+  const panelProps = {
+    action: basePath,
+    filters,
+    categories: categoriesList,
+    brands: brandsList,
+    lockedCategory,
+  };
+
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
-      <aside>
-        <FilterPanel
-          action={basePath}
-          filters={filters}
-          categories={categoriesList}
-          brands={brandsList}
-          lockedCategory={lockedCategory}
-        />
+      {/* Pe mobil filtrele trăiesc în panoul glisant de mai jos, nu în pagină. */}
+      <aside className="hidden lg:block">
+        <FilterPanel {...panelProps} layout="sidebar" idPrefix="d-" />
       </aside>
 
       <div>
-        <SortBar total={results.total} locale={locale} />
+        <CatalogToolbar
+          total={results.total}
+          activeFilterCount={activeFilterCount}
+          locale={locale}
+        >
+          <FilterPanel {...panelProps} layout="sheet" idPrefix="m-" />
+        </CatalogToolbar>
 
         {results.items.length === 0 ? (
           <div className="rounded-cards border border-dashed border-silver-lining p-16 text-center">

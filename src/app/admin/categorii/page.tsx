@@ -1,6 +1,6 @@
 import { ArrowUp, ArrowDown, Trash2 } from "lucide-react";
 import { getAllCategories } from "@/lib/queries/categories";
-import { getSpecTemplatesByCategory } from "@/lib/queries/specTemplates";
+import { getSpecTemplatesGrouped } from "@/lib/queries/specTemplates";
 import {
   createCategoryAction,
   updateCategoryAction,
@@ -14,10 +14,11 @@ import { ConfirmButton } from "@/components/admin/ConfirmButton";
 export const dynamic = "force-dynamic";
 
 export default async function AdminCategoriesPage() {
-  const categoriesList = await getAllCategories();
-  const templatesByCategory = await Promise.all(
-    categoriesList.map((c) => getSpecTemplatesByCategory(c.id))
-  );
+  // O singură interogare pentru categorii și una pentru toate șabloanele.
+  const [categoriesList, templatesByCategory] = await Promise.all([
+    getAllCategories(),
+    getSpecTemplatesGrouped(),
+  ]);
 
   return (
     <div className="max-w-4xl">
@@ -123,10 +124,10 @@ export default async function AdminCategoriesPage() {
 
             <details className="mt-4">
               <summary className="cursor-pointer text-[12px] font-medium uppercase tracking-[0.3px] text-steel">
-                Șablon specificații ({templatesByCategory[i].length})
+                Șablon specificații ({(templatesByCategory.get(cat.id) ?? []).length})
               </summary>
               <div className="mt-3 flex flex-col gap-2">
-                {templatesByCategory[i].map((t) => (
+                {(templatesByCategory.get(cat.id) ?? []).map((t) => (
                   <div
                     key={t.id}
                     className="flex items-center justify-between rounded-inputs bg-mist-gray px-3 py-2 text-[13px]"

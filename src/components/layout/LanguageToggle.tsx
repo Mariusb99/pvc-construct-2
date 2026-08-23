@@ -26,7 +26,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
           disabled={isPending}
           onClick={() => switchTo(l)}
           className={cn(
-            "px-2 py-1 uppercase transition-colors",
+            "flex h-9 min-w-9 items-center justify-center px-2.5 uppercase transition-colors sm:h-7 sm:min-w-7",
             l === locale ? "bg-pure-white text-carbon-black" : "text-pure-white/70 hover:text-pure-white"
           )}
         >
