@@ -33,7 +33,48 @@ export default async function AdminUsersPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-cards border border-silver-lining bg-pure-white">
+      <div className="flex flex-col gap-3 md:hidden">
+        {usersList.map((u) => (
+          <div key={u.id} className="rounded-cards border border-silver-lining bg-pure-white p-4">
+            <p className="break-words text-[15px] font-medium text-carbon-black">
+              {u.name}
+              {u.id === currentUserId && <span className="ml-2 text-[11px] text-fog">(tu)</span>}
+            </p>
+            <p className="break-all text-[13px] text-slate">{u.email}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-silver-lining pt-3">
+              <StatusSelect
+                value={u.role}
+                options={Object.entries(ROLE_LABELS).map(([value, label]) => ({
+                  value: value as "ADMIN" | "VANZARI",
+                  label,
+                }))}
+                onChange={async (role) => {
+                  "use server";
+                  await updateUserRoleAction(u.id, role);
+                }}
+              />
+              <form
+                action={async () => {
+                  "use server";
+                  await toggleUserActiveAction(u.id, !u.active);
+                }}
+              >
+                <button
+                  type="submit"
+                  className={cn(
+                    "min-h-11 rounded-tags px-3.5 text-[13px] font-medium",
+                    u.active ? "bg-carbon-black text-pure-white" : "border border-silver-lining text-slate"
+                  )}
+                >
+                  {u.active ? "Activ" : "Dezactivat"}
+                </button>
+              </form>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="hidden overflow-hidden rounded-cards border border-silver-lining bg-pure-white md:block">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[600px] text-left text-[13px]">
             <thead className="border-b border-silver-lining bg-mist-gray text-[11px] uppercase tracking-[0.3px] text-steel">

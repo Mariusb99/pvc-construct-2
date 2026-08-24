@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { getSettings } from "@/lib/queries/settings";
 import { getActiveCategories } from "@/lib/queries/categories";
 import { getDict } from "@/lib/i18n";
@@ -23,10 +24,10 @@ export async function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-carbon-black">
-      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
         <Link
           href="/"
-          className="flex min-w-0 items-center gap-2 text-[13px] font-semibold tracking-[0.02em] text-pure-white sm:text-[16px] sm:tracking-[0.025em]"
+          className="flex min-w-0 items-center gap-2 text-[15px] font-semibold tracking-[0.02em] text-pure-white sm:text-[16px] sm:tracking-[0.025em]"
         >
           {settingsRow.logoUrl ? (
             <Image
@@ -34,7 +35,7 @@ export async function Navbar() {
               alt={settingsRow.companyName}
               width={220}
               height={56}
-              className="h-11 w-auto object-contain sm:h-14"
+              className="h-9 w-auto max-w-[52vw] object-contain object-left sm:h-12 lg:h-14"
             />
           ) : (
             <span className="truncate uppercase">{settingsRow.companyName}</span>
@@ -80,39 +81,35 @@ export async function Navbar() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <LanguageToggle locale={locale} />
+          {/* Comutatorul de limbă și telefonul rămân în bară pe desktop; pe
+              telefon trăiesc în sertarul de meniu, ca bara să respire. */}
+          <span className="hidden lg:inline-flex">
+            <LanguageToggle locale={locale} />
+          </span>
           {settingsRow.phone && (
             <a
               href={`tel:${settingsRow.phone.replace(/\s+/g, "")}`}
-              className="hidden text-[14px] font-medium text-pure-white/80 hover:text-pure-white md:block"
+              className="hidden text-[14px] font-medium text-pure-white/80 hover:text-pure-white xl:block"
             >
               {settingsRow.phone}
             </a>
           )}
-          {/* Pe mobil acțiunea trăiește în bara fixă de jos, ca header-ul să
-              rămână curat; pe desktop păstrăm un buton sobru, cu contur.
-              Ascunderea se face pe un wrapper: `hidden` pus direct pe buton ar
-              intra în conflict cu `inline-flex` din stilul lui de bază. */}
           <span className="hidden lg:inline-flex">
             <Button href="/contact#cerere-oferta" size="sm" variant="ghost-dark">
               {dict.nav.requestQuote}
             </Button>
           </span>
+
+          <MobileNav
+            links={navLinks}
+            categories={categoriesList.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+            phone={settingsRow.phone}
+            requestQuoteLabel={dict.nav.requestQuote}
+            equipmentLabel={dict.nav.equipment}
+            languageToggle={<LanguageToggle locale={locale} />}
+          />
         </div>
       </div>
-
-      {/* navigare mobilă simplă, sub bara principală */}
-      <nav className="flex items-center gap-1 overflow-x-auto border-t border-white/10 px-4 lg:hidden">
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="flex h-11 shrink-0 items-center whitespace-nowrap px-2 text-[14px] font-medium text-pure-white/80 hover:text-pure-white"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }

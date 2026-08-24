@@ -121,7 +121,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
               name="heroImage"
               type="file"
               accept="image/*"
-              className="block text-[13px] text-slate"
+              className="block w-full min-w-0 max-w-full text-[13px] text-slate"
             />
           </div>
         </div>
@@ -129,7 +129,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
 
       <section>
         <h2 className="mb-4 text-[15px] font-medium text-carbon-black">Logo</h2>
-        <div className="flex items-center gap-4">
+        <div className="flex min-w-0 flex-wrap items-center gap-4">
           {settings.logoUrl ? (
             <Image
               src={settings.logoUrl}
@@ -143,7 +143,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
               Fără logo
             </div>
           )}
-          <input id="logo" name="logo" type="file" accept="image/*" className="text-[13px] text-slate" />
+          <input id="logo" name="logo" type="file" accept="image/*" className="w-full min-w-0 max-w-full text-[13px] text-slate" />
         </div>
       </section>
 

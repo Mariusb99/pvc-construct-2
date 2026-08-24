@@ -29,17 +29,17 @@ export default async function AdminCategoriesPage() {
           "use server";
           await createCategoryAction(formData);
         }}
-        className="mb-8 flex gap-3 rounded-cards border border-silver-lining bg-pure-white p-5"
+        className="mb-8 flex flex-wrap gap-3 rounded-cards border border-silver-lining bg-pure-white p-5"
       >
         <input
           name="name"
           placeholder="Nume categorie nouă (ex. Screwere)"
           required
-          className="flex-1 rounded-inputs border border-steel px-3.5 py-2.5 text-[14px] focus:border-peloton-red focus:outline-none"
+          className="w-full min-w-0 flex-1 rounded-inputs border border-steel px-3.5 py-2.5 text-[14px] focus:border-peloton-red focus:outline-none sm:w-auto"
         />
         <button
           type="submit"
-          className="rounded-buttons bg-peloton-red px-5 py-2.5 text-[14px] font-medium text-pure-white hover:bg-[#c11826]"
+          className="shrink-0 rounded-buttons bg-peloton-red px-5 py-2.5 text-[14px] font-medium text-pure-white hover:bg-[#c11826]"
         >
           Adaugă categorie
         </button>

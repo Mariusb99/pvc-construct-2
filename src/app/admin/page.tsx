@@ -90,7 +90,22 @@ export default async function AdminDashboardPage() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <>
+          <ul className="divide-y divide-silver-lining md:hidden">
+            {recentLeads.map((lead) => (
+              <li key={lead.id} className="px-5 py-3">
+                <p className="break-words text-[14px] font-medium text-carbon-black">{lead.customerName}</p>
+                <p className="text-[12px] text-slate">
+                  {REQUEST_TYPE_LABELS[lead.requestType]}
+                  {lead.equipmentModel ? ` · ${lead.equipmentModel}` : ""}
+                </p>
+                <p className="text-[12px] text-fog">
+                  {new Date(lead.createdAt).toLocaleDateString("ro-RO")}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[700px] text-left text-[13px]">
               <thead className="border-b border-silver-lining bg-mist-gray text-[11px] uppercase tracking-[0.3px] text-steel">
                 <tr>
@@ -114,6 +129,7 @@ export default async function AdminDashboardPage() {
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
 
@@ -126,7 +142,19 @@ export default async function AdminDashboardPage() {
             Nicio închiriere înregistrată încă.
           </p>
         ) : (
-          <div className="overflow-x-auto">
+          <>
+          <ul className="divide-y divide-silver-lining md:hidden">
+            {rentalsList.slice(0, 5).map((r) => (
+              <li key={r.id} className="px-5 py-3">
+                <p className="break-words text-[14px] font-medium text-carbon-black">{r.equipmentModel}</p>
+                <p className="text-[12px] text-slate">{r.startDate} → {r.endDate}</p>
+                <p className="text-[12px] text-fog">
+                  {formatPrice(r.estimatedPrice) ?? "—"} · {r.status}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[700px] text-left text-[13px]">
               <thead className="border-b border-silver-lining bg-mist-gray text-[11px] uppercase tracking-[0.3px] text-steel">
                 <tr>
@@ -150,6 +178,7 @@ export default async function AdminDashboardPage() {
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
     </div>

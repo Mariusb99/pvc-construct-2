@@ -21,9 +21,9 @@ export default async function AdminBrandsPage() {
           name="name"
           placeholder="Nume marcă nouă (ex. Liebherr)"
           required
-          className="flex-1 rounded-inputs border border-steel px-3.5 py-2.5 text-[14px] focus:border-peloton-red focus:outline-none"
+          className="w-full min-w-0 flex-1 rounded-inputs border border-steel px-3.5 py-2.5 text-[14px] focus:border-peloton-red focus:outline-none sm:w-auto"
         />
-        <input type="file" name="logo" accept="image/*" className="text-[13px]" />
+        <input type="file" name="logo" accept="image/*" className="w-full min-w-0 max-w-full text-[13px] sm:w-auto" />
         <button
           type="submit"
           className="rounded-buttons bg-peloton-red px-5 py-2.5 text-[14px] font-medium text-pure-white hover:bg-[#c11826]"
@@ -35,7 +35,7 @@ export default async function AdminBrandsPage() {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {brandsList.map((brand) => (
           <div key={brand.id} className="rounded-cards border border-silver-lining bg-pure-white p-4">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               {brand.logoUrl ? (
                 <Image
                   src={brand.logoUrl}
@@ -51,12 +51,12 @@ export default async function AdminBrandsPage() {
               )}
               <form
                 action={updateBrandAction.bind(null, brand.id)}
-                className="flex flex-1 items-center gap-2"
+                className="flex min-w-0 flex-1 flex-wrap items-center gap-2"
               >
                 <input
                   name="name"
                   defaultValue={brand.name}
-                  className="flex-1 rounded-inputs border border-steel px-3 py-1.5 text-[13px] focus:border-peloton-red focus:outline-none"
+                  className="w-full min-w-0 flex-1 rounded-inputs border border-steel px-3 py-1.5 text-[13px] focus:border-peloton-red focus:outline-none sm:w-auto"
                 />
                 <label className="flex items-center gap-1 text-[12px] text-slate">
                   <input type="checkbox" name="active" defaultChecked={brand.active} className="h-3.5 w-3.5 accent-peloton-red" />

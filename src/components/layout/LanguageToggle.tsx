@@ -18,7 +18,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="flex items-center overflow-hidden rounded-tags border border-white/25 text-[12px] font-medium">
+    <div className="flex items-center overflow-hidden rounded-tags border border-white/25 font-medium">
       {(["ro", "en"] as const).map((l) => (
         <button
           key={l}
@@ -26,7 +26,9 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
           disabled={isPending}
           onClick={() => switchTo(l)}
           className={cn(
-            "flex h-9 min-w-9 items-center justify-center px-2.5 uppercase transition-colors sm:h-7 sm:min-w-7",
+            // Pe telefon: buton generos, ușor de apăsat cu degetul; pe
+            // desktop rămâne compact, potrivit cu bara de navigare.
+            "flex h-11 min-w-[52px] items-center justify-center px-3 text-[14px] uppercase tracking-[0.3px] transition-colors lg:h-8 lg:min-w-10 lg:px-2.5 lg:text-[12px]",
             l === locale ? "bg-pure-white text-carbon-black" : "text-pure-white/70 hover:text-pure-white"
           )}
         >

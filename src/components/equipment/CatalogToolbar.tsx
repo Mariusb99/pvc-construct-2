@@ -67,44 +67,47 @@ export function CatalogToolbar({
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+      {/* Un singur rând flexibil, reordonat cu `order` la fiecare prag:
+          pe telefon [Filtre][Sortare] pe un rând și numărul de rezultate
+          dedesubt; pe desktop numărul la stânga, sortarea și comutatorul de
+          vizualizare la dreapta. */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setFiltersOpen(true)}
+          aria-expanded={filtersOpen}
+          className="order-1 flex h-11 shrink-0 items-center gap-2 rounded-inputs border border-carbon-black bg-pure-white px-4 text-[14px] font-medium text-carbon-black lg:hidden"
+        >
+          <SlidersHorizontal size={16} strokeWidth={1.75} />
+          {t.filtersButton}
+          {activeFilterCount > 0 && (
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-peloton-red px-1.5 text-[11px] font-semibold text-pure-white">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+
+        <select
+          value={currentSort}
+          aria-label={t.sortRecent}
+          onChange={(e) => updateParam("sort", e.target.value)}
+          className="order-2 h-11 min-w-0 flex-1 rounded-inputs border border-steel bg-pure-white px-3 text-[13px] text-carbon-black focus:border-peloton-red focus:outline-none lg:order-3 lg:h-9 lg:flex-none"
+        >
+          {sortOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+
+        <p className="order-3 w-full text-[14px] text-slate lg:order-1 lg:w-auto lg:flex-1">
+          {total} {total === 1 ? t.foundOne : t.foundMany}
+        </p>
+
+        <div className="order-4 hidden overflow-hidden rounded-inputs border border-steel sm:flex">
           <button
             type="button"
-            onClick={() => setFiltersOpen(true)}
-            aria-expanded={filtersOpen}
-            className="flex h-11 items-center gap-2 rounded-inputs border border-carbon-black bg-pure-white px-4 text-[14px] font-medium text-carbon-black lg:hidden"
-          >
-            <SlidersHorizontal size={16} strokeWidth={1.75} />
-            {t.filtersButton}
-            {activeFilterCount > 0 && (
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-peloton-red px-1.5 text-[11px] font-semibold text-pure-white">
-                {activeFilterCount}
-              </span>
-            )}
-          </button>
-          <p className="text-[14px] text-slate">
-            {total} {total === 1 ? t.foundOne : t.foundMany}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <select
-            value={currentSort}
-            aria-label={t.sortRecent}
-            onChange={(e) => updateParam("sort", e.target.value)}
-            className="h-11 rounded-inputs border border-steel bg-pure-white px-3 text-[13px] text-carbon-black focus:border-peloton-red focus:outline-none sm:h-9"
-          >
-            {sortOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <div className="hidden overflow-hidden rounded-inputs border border-steel sm:flex">
-            <button
-              type="button"
-              aria-label={t.gridView}
+            aria-label={t.gridView}
               aria-pressed={currentView === "grid"}
               onClick={() => updateParam("view", "grid")}
               className={cn(
@@ -124,9 +127,8 @@ export function CatalogToolbar({
                 currentView === "list" ? "bg-carbon-black text-pure-white" : "bg-pure-white text-slate"
               )}
             >
-              <List size={16} />
-            </button>
-          </div>
+            <List size={16} />
+          </button>
         </div>
       </div>
 
