@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  // Fixează rădăcina workspace-ului explicit — evită detectarea greșită când
+  // există un package-lock.json „rătăcit" mai sus în arborele de directoare
+  // (ex. C:\Users\<user>\package-lock.json dintr-un alt proiect).
+  outputFileTracingRoot: path.join(__dirname),
   // Ascunde indicatorul „N" al Next.js din colțul paginii în modul de dezvoltare.
   devIndicators: false,
   eslint: {

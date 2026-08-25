@@ -29,13 +29,13 @@ Black / Mist Gray, accent roșu unic, Inter.
 ## Configurare rapidă (dezvoltare locală)
 
 ```bash
-npm install
+bun install
 cp .env.example .env
 # completează .env cu datele tale (vezi secțiunea de mai jos)
 
-npm run db:push      # creează tabelele în baza de date
-npm run db:seed       # populează setările companiei, categoriile, mărcile și contul de admin
-npm run dev
+bun run db:push      # creează tabelele în baza de date
+bun run db:seed       # populează setările companiei, categoriile, mărcile și contul de admin
+bun run dev
 ```
 
 Aplicația pornește pe [http://localhost:3000](http://localhost:3000). Panoul de admin este la
@@ -58,8 +58,8 @@ rula seed-ul pe baza de producție).
    pe platforme serverless (Vercel, Netlify etc.), unde sistemul de fișiere este efemer.
 4. *Project Settings → API* → copiază `Project URL` în `SUPABASE_URL` și `service_role` (secret)
    în `SUPABASE_SERVICE_ROLE_KEY`.
-5. Rulează migrațiile pe baza de date Supabase: `npm run db:push` (cu `DATABASE_URL` completat).
-6. Rulează `npm run db:seed` o singură dată, pentru a popula setările companiei, categoriile,
+5. Rulează migrațiile pe baza de date Supabase: `bun run db:push` (cu `DATABASE_URL` completat).
+6. Rulează `bun run db:seed` o singură dată, pentru a popula setările companiei, categoriile,
    mărcile inițiale și contul de admin.
 
 Fără `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY` setate, aplicația salvează imaginile local în
@@ -78,7 +78,7 @@ Vezi `.env.example` pentru șablon. Rezumat:
 | `SUPABASE_URL` | Recomandat în producție | Project URL Supabase, pentru stocarea imaginilor |
 | `SUPABASE_SERVICE_ROLE_KEY` | Recomandat în producție | Cheie service_role Supabase (secretă, nu o expune public) |
 | `SUPABASE_STORAGE_BUCKET` | Nu | Numele bucket-ului de storage (implicit `public-assets`) |
-| `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` | Nu | Suprascriu contul de admin creat de `npm run db:seed` |
+| `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` | Nu | Suprascriu contul de admin creat de `bun run db:seed` |
 
 ## Structura proiectului
 
@@ -142,9 +142,9 @@ Pași generali:
 1. Urcă acest proiect într-un repository Git (GitHub/GitLab).
 2. Conectează repository-ul la platforma de hosting aleasă.
 3. Setează variabilele de mediu din secțiunea de mai sus (inclusiv Supabase).
-4. Rulează `npm run db:push` (sau `npm run db:migrate`, dacă preferi migrații versionate) pe
-   baza de date de producție, apoi `npm run db:seed` **o singură dată**.
-5. Deploy. Comanda de build este `npm run build`, cea de pornire `npm run start`.
+4. Rulează `bun run db:push` (sau `bun run db:migrate`, dacă preferi migrații versionate) pe
+   baza de date de producție, apoi `bun run db:seed` **o singură dată**.
+5. Deploy. Comanda de build este `bun run build`, cea de pornire `bun run start`.
 6. Atașează domeniul `.ro` din panoul platformei de hosting.
 
 După deploy, intră în `/admin/setari` și completează telefon/email de contact (lăsate goale
@@ -153,14 +153,14 @@ intenționat la seed), apoi schimbă parola contului de admin din `/admin/useri`
 ## Comenzi utile
 
 ```bash
-npm run dev          # server de dezvoltare
-npm run build         # build de producție
-npm run start          # pornește build-ul de producție (rulează npm run build înainte)
-npm run lint            # verificare cod
+bun run dev          # server de dezvoltare
+bun run build         # build de producție
+bun run start          # pornește build-ul de producție (rulează bun run build înainte)
+bun run lint            # verificare cod
 
-npm run db:push         # sincronizează schema cu baza de date (rapid, pentru dezvoltare)
-npm run db:generate     # generează fișiere de migrație versionate
-npm run db:migrate      # aplică migrațiile generate (recomandat pentru producție)
-npm run db:studio       # interfață vizuală pentru baza de date (Drizzle Studio)
-npm run db:seed         # populează datele inițiale (setări, categorii, mărci, admin)
+bun run db:push         # sincronizează schema cu baza de date (rapid, pentru dezvoltare)
+bun run db:generate     # generează fișiere de migrație versionate
+bun run db:migrate      # aplică migrațiile generate (recomandat pentru producție)
+bun run db:studio       # interfață vizuală pentru baza de date (Drizzle Studio)
+bun run db:seed         # populează datele inițiale (setări, categorii, mărci, admin)
 ```
