@@ -46,7 +46,7 @@ export async function Hero() {
           {headline}
         </h1>
         {subheadline && (
-          <p className="max-w-[560px] text-[18px] leading-relaxed text-pure-white/80">
+          <p className="max-w-[600px] text-[18px] font-medium leading-relaxed text-pure-white/95 sm:text-[20px]">
             {subheadline}
           </p>
         )}
