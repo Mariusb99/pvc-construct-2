@@ -107,6 +107,12 @@ export default async function AdminLeadsPage({
                   <dd className="break-words text-slate">{lead.projectLocation}</dd>
                 </div>
               )}
+              {lead.message && (
+                <div className="col-span-2">
+                  <dt className="text-[11px] uppercase tracking-[0.3px] text-steel">Mesaj</dt>
+                  <dd className="whitespace-pre-wrap break-words text-slate">{lead.message}</dd>
+                </div>
+              )}
             </dl>
             <div className="mt-3 border-t border-silver-lining pt-3">
               <StatusSelect
@@ -146,7 +152,7 @@ export default async function AdminLeadsPage({
 
       <div className="hidden overflow-hidden rounded-cards border border-silver-lining bg-pure-white md:block">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1000px] text-left text-[13px]">
+          <table className="w-full min-w-[1200px] text-left text-[13px]">
             <thead className="border-b border-silver-lining bg-mist-gray text-[11px] uppercase tracking-[0.3px] text-steel">
               <tr>
                 <th className="px-4 py-3">Client</th>
@@ -155,6 +161,7 @@ export default async function AdminLeadsPage({
                 <th className="px-4 py-3">Utilaj</th>
                 <th className="px-4 py-3">Perioadă</th>
                 <th className="px-4 py-3">Locație</th>
+                <th className="px-4 py-3">Mesaj</th>
                 <th className="px-4 py-3">Data</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3 text-right">Acțiuni</th>
@@ -188,6 +195,9 @@ export default async function AdminLeadsPage({
                     {lead.startDate ? `${lead.startDate} → ${lead.endDate}` : "—"}
                   </td>
                   <td className="px-4 py-3 text-slate">{lead.projectLocation ?? "—"}</td>
+                  <td className="px-4 py-3 max-w-[220px] whitespace-pre-wrap break-words text-slate">
+                    {lead.message ?? "—"}
+                  </td>
                   <td className="px-4 py-3 text-slate">
                     {new Date(lead.createdAt).toLocaleDateString("ro-RO")}
                   </td>
@@ -224,7 +234,7 @@ export default async function AdminLeadsPage({
               ))}
               {leadsList.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-10 text-center text-slate">
+                  <td colSpan={10} className="px-4 py-10 text-center text-slate">
                     Niciun lead momentan.
                   </td>
                 </tr>

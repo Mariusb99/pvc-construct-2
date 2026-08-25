@@ -35,7 +35,8 @@ export async function Navbar() {
               alt={settingsRow.companyName}
               width={220}
               height={56}
-              className="h-9 w-auto max-w-[52vw] object-contain object-left sm:h-12 lg:h-14"
+              className="h-12 w-auto max-w-[62vw] object-contain object-left sm:h-12 lg:h-14"
+              priority
             />
           ) : (
             <span className="truncate uppercase">{settingsRow.companyName}</span>
