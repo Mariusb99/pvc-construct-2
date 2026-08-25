@@ -262,6 +262,13 @@ export const rentals = pgTable("rentals", {
   leadId: text("lead_id").references(() => leads.id, {
     onDelete: "set null",
   }),
+  // Completate direct în admin când închirierea e creată manual, fără un
+  // lead existent (client sunat/venit direct). Când `leadId` e setat,
+  // datele clientului vin din lead — aceste coloane rămân goale.
+  customerName: varchar("customer_name", { length: 140 }),
+  company: varchar("company", { length: 160 }),
+  customerPhone: varchar("customer_phone", { length: 40 }),
+  customerEmail: varchar("customer_email", { length: 190 }),
   startDate: date("start_date").notNull(),
   endDate: date("end_date").notNull(),
   status: rentalStatusEnum("status").notNull().default("SOLICITAT"),

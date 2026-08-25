@@ -55,6 +55,32 @@ export default async function NewRentalPage({
       <form action={createRentalFromLeadAction} className="flex flex-col gap-5">
         <input type="hidden" name="leadId" value={leadId ?? ""} />
 
+        {!lead && (
+          <div className="flex flex-col gap-4 rounded-cards border border-silver-lining bg-mist-gray p-5">
+            <p className="text-[11px] font-medium uppercase tracking-[0.3px] text-steel">
+              Date client
+            </p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="customerName">Nume</Label>
+                <Input id="customerName" name="customerName" required placeholder="Nume și prenume" />
+              </div>
+              <div>
+                <Label htmlFor="company">Companie</Label>
+                <Input id="company" name="company" placeholder="Firma (opțional)" />
+              </div>
+              <div>
+                <Label htmlFor="customerPhone">Telefon</Label>
+                <Input id="customerPhone" name="customerPhone" type="tel" required placeholder="07xx xxx xxx" />
+              </div>
+              <div>
+                <Label htmlFor="customerEmail">Email</Label>
+                <Input id="customerEmail" name="customerEmail" type="email" placeholder="(opțional)" />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div>
           <Label htmlFor="equipmentId">Utilaj</Label>
           {preselectedEquipment ? (

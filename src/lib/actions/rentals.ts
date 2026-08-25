@@ -20,9 +20,23 @@ export async function createRentalFromLeadAction(formData: FormData) {
 
   if (!equipmentId || !startDate || !endDate) return;
 
+  // Fără lead (închiriere creată manual din admin) — clientul se
+  // completează direct pe formular: nume și telefon sunt obligatorii,
+  // firma și email-ul sunt opționale.
+  const customerName = leadId ? null : String(formData.get("customerName") || "").trim() || null;
+  const company = leadId ? null : String(formData.get("company") || "").trim() || null;
+  const customerPhone = leadId ? null : String(formData.get("customerPhone") || "").trim() || null;
+  const customerEmail = leadId ? null : String(formData.get("customerEmail") || "").trim() || null;
+
+  if (!leadId && (!customerName || !customerPhone)) return;
+
   await db.insert(rentals).values({
     equipmentId,
     leadId: leadId || null,
+    customerName,
+    company,
+    customerPhone,
+    customerEmail,
     startDate,
     endDate,
     estimatedPrice,

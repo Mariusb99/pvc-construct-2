@@ -3,7 +3,7 @@ import { rentals, equipment, leads, availabilityBlocks } from "@/lib/db/schema";
 import { desc, eq } from "drizzle-orm";
 
 export async function getRentals() {
-  return db
+  const rows = await db
     .select({
       id: rentals.id,
       startDate: rentals.startDate,
@@ -15,13 +15,38 @@ export async function getRentals() {
       equipmentId: rentals.equipmentId,
       equipmentModel: equipment.model,
       leadId: rentals.leadId,
-      customerName: leads.customerName,
-      customerPhone: leads.phone,
+      // Datele clientului vin fie din lead-ul asociat, fie — pentru
+      // închirierile create manual, fără lead — direct de pe rând.
+      leadCustomerName: leads.customerName,
+      leadCompany: leads.company,
+      leadCustomerPhone: leads.phone,
+      leadCustomerEmail: leads.email,
+      rentalCustomerName: rentals.customerName,
+      rentalCompany: rentals.company,
+      rentalCustomerPhone: rentals.customerPhone,
+      rentalCustomerEmail: rentals.customerEmail,
     })
     .from(rentals)
     .innerJoin(equipment, eq(rentals.equipmentId, equipment.id))
     .leftJoin(leads, eq(rentals.leadId, leads.id))
     .orderBy(desc(rentals.createdAt));
+
+  return rows.map((r) => ({
+    id: r.id,
+    startDate: r.startDate,
+    endDate: r.endDate,
+    status: r.status,
+    estimatedPrice: r.estimatedPrice,
+    notes: r.notes,
+    createdAt: r.createdAt,
+    equipmentId: r.equipmentId,
+    equipmentModel: r.equipmentModel,
+    leadId: r.leadId,
+    customerName: r.leadCustomerName ?? r.rentalCustomerName,
+    company: r.leadCompany ?? r.rentalCompany,
+    customerPhone: r.leadCustomerPhone ?? r.rentalCustomerPhone,
+    customerEmail: r.leadCustomerEmail ?? r.rentalCustomerEmail,
+  }));
 }
 
 export async function getAvailabilityBlocks() {
