@@ -18,17 +18,13 @@ type NavLink = { href: string; label: string };
  */
 export function MobileNav({
   links,
-  categories,
   phone,
   requestQuoteLabel,
-  equipmentLabel,
   languageToggle,
 }: {
   links: NavLink[];
-  categories: { id: string; name: string; slug: string }[];
   phone: string | null;
   requestQuoteLabel: string;
-  equipmentLabel: string;
   languageToggle: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -109,23 +105,6 @@ export function MobileNav({
                 </Link>
               );
             })}
-
-            {categories.length > 0 && (
-              <>
-                <p className="mt-4 px-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.3px] text-pure-white/40">
-                  {equipmentLabel}
-                </p>
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/utilaje/${cat.slug}`}
-                    className="flex min-h-11 items-center rounded-tags px-3 text-[15px] text-pure-white/70 hover:bg-white/5 hover:text-pure-white"
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
-              </>
-            )}
           </div>
 
           <div className="shrink-0 border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">

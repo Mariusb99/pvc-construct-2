@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getSettings } from "@/lib/queries/settings";
 import { getActiveCategories } from "@/lib/queries/categories";
 import { getDict } from "@/lib/i18n";
@@ -112,6 +113,43 @@ export async function Footer() {
               </Link>
             </li>
           </ul>
+        </div>
+      </div>
+
+      {/* Insigne obligatorii de protecția consumatorului: ANPC (SAL) și SOL.
+          Fiecare deschide site-ul oficial corespunzător într-un tab nou. */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4 px-6 py-6 sm:flex-row sm:justify-center">
+          <a
+            href="https://anpc.ro/sal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ANPC - Soluționarea Alternativă a Litigiilor (SAL)"
+            className="inline-block shrink-0 opacity-90 transition-opacity hover:opacity-100"
+          >
+            <Image
+              src="/badges/anpc-sal.png"
+              alt="ANPC - Soluționarea Alternativă a Litigiilor"
+              width={200}
+              height={49}
+              className="h-10 w-auto"
+            />
+          </a>
+          <a
+            href="https://consumer-redress.ec.europa.eu/index_en"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Soluționarea Online a Litigiilor (SOL)"
+            className="inline-block shrink-0 opacity-90 transition-opacity hover:opacity-100"
+          >
+            <Image
+              src="/badges/sol.png"
+              alt="Soluționarea Online a Litigiilor"
+              width={150}
+              height={42}
+              className="h-10 w-auto"
+            />
+          </a>
         </div>
       </div>
 

@@ -102,10 +102,8 @@ export async function Navbar() {
 
           <MobileNav
             links={navLinks}
-            categories={categoriesList.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
             phone={settingsRow.phone}
             requestQuoteLabel={dict.nav.requestQuote}
-            equipmentLabel={dict.nav.equipment}
             languageToggle={<LanguageToggle locale={locale} />}
           />
         </div>
